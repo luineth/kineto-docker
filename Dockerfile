@@ -2,12 +2,18 @@ FROM golang:1.21 AS builder
 
 WORKDIR /app
 
+# Get upstream code
 RUN git clone https://git.sr.ht/~sircmpwn/kineto .
-RUN go build -o kineto
 
+ARG TARGETARCH
+
+# Compile
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH go build -o /app/kineto
+
+# Final container, install missing library
 FROM alpine:latest
-
 RUN apk add --no-cache libc6-compat
+
 
 COPY --from=builder /app/kineto /usr/local/bin/kineto
 
