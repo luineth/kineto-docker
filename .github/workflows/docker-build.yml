@@ -28,9 +28,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract tag name
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+  
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/${{ github.repository_owner }}/kineto:latest
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/kineto:latest
+            ghcr.io/${{ github.repository_owner }}/kineto:${{ env.TAG }}
