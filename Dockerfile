@@ -3,7 +3,7 @@ FROM golang:1.21 AS builder
 WORKDIR /app
 
 # Get upstream code
-RUN git clone https://git.sr.ht/~sircmpwn/kineto .
+COPY upstream kineto
 
 ARG TARGETARCH
 
