@@ -1,9 +1,9 @@
 FROM golang:1.21 AS builder
 
-WORKDIR /app
+WORKDIR /app/kineto
 
 # Get upstream code
-COPY upstream kineto
+COPY upstream/. .
 
 ARG TARGETARCH
 
