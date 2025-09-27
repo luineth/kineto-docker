@@ -1,6 +1,6 @@
 FROM golang:1.21 AS builder
 
-WORKDIR /app/kineto
+WORKDIR /app
 COPY upstream/. .
 ARG TARGETARCH
 
