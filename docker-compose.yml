@@ -1,9 +1,6 @@
 services:
   kineto:
-    image: kineto
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: ghcr.io/luineth/kineto:latest
     container_name: kineto
     ports:
       - "8080:8080"
