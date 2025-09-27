@@ -1,18 +1,22 @@
-version: '3.8'
-
 services:
   kineto:
-    image: 
+    image: kineto
+    build:
+      context: ./
+      dockerfile: Dockerfile
     container_name: kineto
     ports:
       - "8080:8080"
-    
     environment:
-      KINETO_URL: "gemini://[YOUR CAPSULE]"
-      KINETO_BIND: "0.0.0.0:8080"
+      KINETO_URL: "gemini://[YOUR CAPSULE URL]/"
+      # Setting disable proxy to true causes kineto to not convert
+      # gemini links to http. Leaving as false enables proxying
+      # other pages.
+      KINETO_DISABLE_PROXY: "false"
+      # Uncomment CSS file *and* volume mounts to load a local
+      # style sheet.
       #KINETO_CSS_FILE: "/app/style.css"
       #KINETO_CSS_URL: ""
-      KINETO_DISABLE_PROXY: "false"
     #volumes:
-    #   - ./style.css:/app/style.css
+    #   - path/to/style.css:/app/style.css
     restart: unless-stopped
